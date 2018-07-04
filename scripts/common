@@ -29,7 +29,9 @@ copy_previous(){
 	fi
 	mkdir -p "${ROOTFS_DIR}"
 	
-	rsync -vPaHAXx --exclude var/cache/apt/archives "${PREV_ROOTFS_DIR}/" "${ROOTFS_DIR}/"
+	rsync -vaHAXx --dry-run --exclude var/cache/apt/archives "${PREV_ROOTFS_DIR}/" "${ROOTFS_DIR}/"
+	mv "${PREV_ROOTFS_DIR}/" "${ROOTFS_DIR}/"
+	rm -rf "${ROOTFS_DIR}/var/cache/apt/archives" 
 }
 export -f copy_previous
 
