@@ -1,3 +1,3 @@
 set -x
 export SHELLOPTS
-./build.sh
+bash build-docker.sh
