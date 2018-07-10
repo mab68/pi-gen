@@ -19,6 +19,7 @@ bootstrap(){
 		--arch armhf \
 		--keyring "${STAGE_DIR}/files/raspberrypi.gpg" \
 		"$1" "$2" "$3" || rmdir "$2/debootstrap"
+	cat /builds/mab68/faucet/raspbian-image/pi-gen/work/2018-07-10-faucet_raspbian/stage0/rootfs/debootstrap
 }
 export -f bootstrap
 
