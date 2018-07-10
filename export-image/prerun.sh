@@ -48,24 +48,28 @@ ROOT_OFFSET=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 | cut -d" " -f 4 | tr -d B)
 
-dd if=/dev/zero of=virtualfs1 bs=1024 count=30720
-dd if=/dev/zero of=virtualfs2 bs=1024 count=30720
+#dd if=/dev/zero of=virtualfs1 bs=1024 count=30720
+#dd if=/dev/zero of=virtualfs2 bs=1024 count=30720
 
-losetup -f
-losetup /dev/loop0 virtualfs1
-losetup -f
-losetup /dev/loop1 virtualfs2
+#losetup -f
+#losetup /dev/loop0 virtualfs1
+#losetup -f
+#losetup /dev/loop1 virtualfs2
 
-losetup -d /dev/loop0
-losetup -d /dev/loop1
+#losetup -d /dev/loop0
+#losetup -d /dev/loop1
 
 #losetup -D
-#for i in $(seq 0 10); do
-#    dd if=/dev/zero of=virtualfs$i bs=1024 count=30720
-#    losetup /dev/loop$i virtualfs$i
-#    losetup -d /dev/loop$i
-#    rm virtualfs$i
-#done
+for i in $(seq 0 10); do
+    dd if=/dev/zero of=virtualfs$((i+1)) bs=1024 count=30720
+    losetup -f
+    losetup /dev/loop$i virtualfs$((i+1))
+    #losetup -d /dev/loop$i
+    #rm virtualfs$i
+done
+for i in $(seq 0 10); do
+    losetup -d /dev/loop$i
+done
 
 BOOT_DEV=$(losetup --show -f -o "${BOOT_OFFSET}" --sizelimit "${BOOT_LENGTH}" "${IMG_FILE}")
 ROOT_DEV=$(losetup --show -f -o "${ROOT_OFFSET}" --sizelimit "${ROOT_LENGTH}" "${IMG_FILE}")
