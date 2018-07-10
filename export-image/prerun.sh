@@ -61,16 +61,16 @@ ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 
 losetup -D
 for i in $(seq 0 10); do
-    dd if=/dev/zero of=virtualfs$((i+1)) bs=1024 count=30720
+    dd if=/dev/zero of=virtualfs$i bs=1024 count=30720
     losetup -f
-    losetup /dev/loop$i virtualfs$((i+1))
-    #losetup -d /dev/loop$i
-    #rm virtualfs$i
-done
-for i in $(seq 0 10); do
+    losetup /dev/loop$i virtualfs$i
     losetup -d /dev/loop$i
-    rm virtualfs$((i+1))
+    rm virtualfs$i
 done
+#for i in $(seq 0 10); do
+#    losetup -d /dev/loop$i
+#    rm virtualfs$((i+1))
+#done
 
 BOOT_DEV=$(losetup --show -f -o "${BOOT_OFFSET}" --sizelimit "${BOOT_LENGTH}" "${IMG_FILE}")
 ROOT_DEV=$(losetup --show -f -o "${ROOT_OFFSET}" --sizelimit "${ROOT_LENGTH}" "${IMG_FILE}")
