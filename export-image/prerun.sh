@@ -52,10 +52,11 @@ ls /dev/loop*
 modprobe loop
 ls /sys/module/loop*
 losetup -D
-for i in $(seq 0 5); do
-    dd if=/dev/zero of=virtualfs$i bs=1024 count=30720
-    losetup -f
-    losetup /dev/loop$i virtualfs$i
+for i in $(seq 0 7); do
+    mknod /dev/loop$i b 7 0
+    #dd if=/dev/zero of=virtualfs$i bs=1024 count=30720
+    #losetup -f
+    #losetup /dev/loop$i virtualfs$i
     #losetup -d /dev/loop$i
     #rm virtualfs$i
 done
