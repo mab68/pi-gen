@@ -50,7 +50,7 @@ ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 
 ls /dev/loop*
 #modprobe loop
-ls /sys/module/loop*
+#ls /sys/module/loop*
 losetup -D
 for i in $(seq 0 7); do
     mknod /dev/loop$i b 7 0
