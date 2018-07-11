@@ -49,6 +49,8 @@ ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 | cut -d" " -f 4 | tr -d B)
 
 ls /dev/loop*
+modprobe loop
+ls /sys/module/loop*
 losetup -D
 for i in $(seq 0 5); do
     dd if=/dev/zero of=virtualfs$i bs=1024 count=30720
