@@ -58,7 +58,8 @@ ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 
 #losetup -d /dev/loop0
 #losetup -d /dev/loop1
-
+ls /dev/
+ls "${ROOTFS_DIR}/dev/"
 losetup -D
 for i in $(seq 0 10); do
     dd if=/dev/zero of=virtualfs$i bs=1024 count=30720
