@@ -49,7 +49,7 @@ ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 | cut -d" " -f 4 | tr -d B)
 
 ls /dev/loop*
-modprobe loop
+#modprobe loop
 ls /sys/module/loop*
 losetup -D
 for i in $(seq 0 7); do
