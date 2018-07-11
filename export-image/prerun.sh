@@ -67,6 +67,7 @@ for i in $(seq 0 5); do
     #losetup -d /dev/loop$i
     #rm virtualfs$i
 done
+ls /dev/
 
 BOOT_DEV=$(losetup --show -f -o "${BOOT_OFFSET}" --sizelimit "${BOOT_LENGTH}" "${IMG_FILE}")
 ROOT_DEV=$(losetup --show -f -o "${ROOT_OFFSET}" --sizelimit "${ROOT_LENGTH}" "${IMG_FILE}")
