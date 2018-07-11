@@ -53,7 +53,7 @@ ls /dev/loop*
 #ls /sys/module/loop*
 losetup -D
 for i in $(seq 0 7); do
-    mknod /dev/loop$i b 7 0
+    mknod -m 0660 /dev/loop$i b 7 $i
     #dd if=/dev/zero of=virtualfs$i bs=1024 count=30720
     #losetup -f
     #losetup /dev/loop$i virtualfs$i
