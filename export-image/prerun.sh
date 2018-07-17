@@ -48,19 +48,10 @@ ROOT_OFFSET=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 | cut -d" " -f 4 | tr -d B)
 
-ls /dev/loop*
-#modprobe loop
-#ls /sys/module/loop*
 losetup -D
 for i in $(seq 0 7); do
     mknod -m 0660 /dev/loop$i b 7 $i
-    #dd if=/dev/zero of=virtualfs$i bs=1024 count=30720
-    #losetup -f
-    #losetup /dev/loop$i virtualfs$i
-    #losetup -d /dev/loop$i
-    #rm virtualfs$i
 done
-ls /dev/loop*
 
 BOOT_DEV=$(losetup --show -f -o "${BOOT_OFFSET}" --sizelimit "${BOOT_LENGTH}" "${IMG_FILE}")
 ROOT_DEV=$(losetup --show -f -o "${ROOT_OFFSET}" --sizelimit "${ROOT_LENGTH}" "${IMG_FILE}")
